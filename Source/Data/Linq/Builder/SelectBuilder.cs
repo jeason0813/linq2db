@@ -246,6 +246,8 @@ namespace LinqToDB.Data.Linq.Builder
 
 		static IEnumerable<SequenceConvertPath> GetExpressions(ParameterExpression param, Expression path, int level, Expression expression)
 		{
+			return null;
+			/*
 			switch (expression.NodeType)
 			{
 				// new { ... }
@@ -308,6 +310,7 @@ namespace LinqToDB.Data.Linq.Builder
 						break;
 					}
 			}
+			 */
 		}
 
 		#endregion

@@ -98,7 +98,7 @@ namespace LinqToDB
 
 		IDataReader IDataContext.ExecuteReader(object query)
 		{
-			var ctx = GetDBManager() as IDataContext;
+			IDataContext ctx = GetDBManager();
 			return ctx.ExecuteReader(query);
 		}
 

@@ -27,7 +27,7 @@ namespace LinqToDB.Data.Linq
 
 		public ISqlProvider CreateSqlProvider()
 		{
-			return DataContext.CreateSqlProvider();
+			return this.DataContext.CreateSqlProvider();
 		}
 
 		public IDataContextInfo Clone()

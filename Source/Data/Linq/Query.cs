@@ -32,7 +32,7 @@ namespace LinqToDB.Data.Linq
 			return
 				ContextID.Length == contextID.Length &&
 				ContextID        == contextID        &&
-				MappingSchema    == mappingSchema    &&
+				this.MappingSchema    == mappingSchema    &&
 				Expression.EqualsTo(expr, _queryableAccessorDic);
 		}
 
@@ -102,7 +102,8 @@ namespace LinqToDB.Data.Linq
 
 		IEnumerable<T> MakeEnumerable(QueryContext qc, IDataContextInfo dci, Expression expr, object[] ps)
 		{
-			yield return ConvertTo<T>.From(GetElement(qc, dci, expr, ps));
+			//yield return ConvertTo<T>.From(GetElement(qc, dci, expr, ps));
+			return null;
 		}
 
 		#endregion
@@ -316,7 +317,8 @@ namespace LinqToDB.Data.Linq
 		}
 
 		IEnumerable<IDataReader> RunQuery(IDataContextInfo dataContextInfo, Expression expr, object[] parameters, int queryNumber)
-		{
+		{ return null; }
+		/*{
 			var dataContext = dataContextInfo.DataContext;
 
 			object query = null;
@@ -337,7 +339,7 @@ namespace LinqToDB.Data.Linq
 				if (dataContextInfo.DisposeContext)
 					dataContext.Dispose();
 			}
-		}
+		}*/
 
 		object SetCommand(IDataContext dataContext, Expression expr, object[] parameters, int idx)
 		{
@@ -973,11 +975,14 @@ namespace LinqToDB.Data.Linq
 			object[]                 ps,
 			Func<QueryContext,IDataContext,IDataReader,Expression,object[],T> mapper)
 		{
+			return null;
+			/*
 			if (queryContext == null)
 				queryContext = new QueryContext(dataContextInfo, expr, ps);
 
 			foreach (var dr in data)
 				yield return mapper(queryContext, dataContextInfo.DataContext, dr, expr, ps);
+			*/
 		}
 
 		#endregion

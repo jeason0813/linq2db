@@ -125,7 +125,7 @@ namespace LinqToDB.Data.Linq.Builder
 			#region Properties
 
 #if DEBUG
-			public string _sqlQueryText { get { return SqlQuery == null ? "" : SqlQuery.SqlText; } }
+			public string _sqlQueryText { get { return this.SqlQuery == null ? "" : this.SqlQuery.SqlText; } }
 #endif
 
 			public ExpressionBuilder Builder    { get; private set; }
@@ -533,8 +533,8 @@ namespace LinqToDB.Data.Linq.Builder
 					{
 						var memberExpression = (MemberExpression)expression;
 
-						if (ObjectMapper != null &&
-							ObjectMapper.TypeAccessor.Type == memberExpression.Member.DeclaringType)
+						if (this.ObjectMapper != null &&
+							this.ObjectMapper.TypeAccessor.Type == memberExpression.Member.DeclaringType)
 						{
 							throw new LinqException("Member '{0}.{1}' is not a table column.",
 								memberExpression.Member.Name, memberExpression.Member.Name);
@@ -865,6 +865,9 @@ namespace LinqToDB.Data.Linq.Builder
 
 			SqlField GetField(Expression expression, int level, bool throwException)
 			{
+				throw new NotImplementedException();
+			}
+			/*{
 				if (expression.NodeType == ExpressionType.MemberAccess)
 				{
 					var memberExpression = (MemberExpression)expression;
@@ -944,8 +947,8 @@ namespace LinqToDB.Data.Linq.Builder
 							}
 
 							if (throwException &&
-								ObjectMapper != null &&
-								ObjectMapper.TypeAccessor.Type == memberExpression.Member.DeclaringType)
+								this.ObjectMapper != null &&
+								this.ObjectMapper.TypeAccessor.Type == memberExpression.Member.DeclaringType)
 							{
 								throw new LinqException("Member '{0}.{1}' is not a table column.",
 									memberExpression.Member.Name, memberExpression.Member.Name);
@@ -955,7 +958,7 @@ namespace LinqToDB.Data.Linq.Builder
 				}
 
 				return null;
-			}
+			}*/
 
 			[JetBrains.Annotations.NotNull]
 			readonly Dictionary<MemberInfo,AssociatedTableContext> _associations =
@@ -994,7 +997,7 @@ namespace LinqToDB.Data.Linq.Builder
 
 			TableLevel GetAssociation(Expression expression, int level)
 			{
-				var objectMapper    = ObjectMapper;
+				var objectMapper    = this.ObjectMapper;
 				var levelExpression = expression.GetLevelExpression(level);
 				var inheritance     =
 					(
@@ -1026,17 +1029,18 @@ namespace LinqToDB.Data.Linq.Builder
 
 						if (tableAssociation != null)
 						{
-							if (levelExpression == expression)
-								return new TableLevel { Table = tableAssociation, Level = level };
+							//if (levelExpression == expression)
+							//  return new TableLevel { Table = tableAssociation, Level = level };
 
-							var al = tableAssociation.GetAssociation(expression, level + 1);
+							//var al = tableAssociation.GetAssociation(expression, level + 1);
 
-							if (al != null)
-								return al;
+							//if (al != null)
+							//  return al;
 
-							var field = tableAssociation.GetField(expression, level + 1, false);
+							//var field = tableAssociation.GetField(expression, level + 1, false);
 
-							return new TableLevel { Table = tableAssociation, Field = field, Level = field == null ? level : level + 1 };
+							//return new TableLevel { Table = tableAssociation, Field = field, Level = field == null ? level : level + 1 };
+							return null;
 						}
 					}
 				}
@@ -1080,10 +1084,10 @@ namespace LinqToDB.Data.Linq.Builder
 				OriginalType = type;
 				ObjectType   = GetObjectType();
 				ObjectMapper = Builder.MappingSchema.GetObjectMapper(ObjectType);
-				SqlTable     = new SqlTable(builder.MappingSchema, ObjectType);
+				this.SqlTable = new SqlTable(builder.MappingSchema, ObjectType);
 
 				var psrc = parent.SqlQuery.From[parent.SqlTable];
-				var join = left ? SqlTable.WeakLeftJoin() : IsList ? SqlTable.InnerJoin() : SqlTable.WeakInnerJoin();
+				var join = left ? this.SqlTable.WeakLeftJoin() : IsList ? this.SqlTable.InnerJoin() : this.SqlTable.WeakInnerJoin();
 
 				Association           = association;
 				ParentAssociation     = parent;

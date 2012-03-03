@@ -409,7 +409,7 @@ namespace LinqToDB.Data.Linq.Builder
 				{
 					var ni = info[i];
 
-					if (ni.Query != SqlQuery)
+					if (ni.Query != this.SqlQuery)
 					{
 						ni = new SqlInfo
 						{
@@ -574,12 +574,12 @@ namespace LinqToDB.Data.Linq.Builder
 
 		void SetInfo(SqlInfo info)
 		{
-			info.Query = SqlQuery;
+			info.Query = this.SqlQuery;
 
-			if (info.Sql == SqlQuery)
-				info.Index = SqlQuery.Select.Columns.Count - 1;
+			if (info.Sql == this.SqlQuery)
+				info.Index = this.SqlQuery.Select.Columns.Count - 1;
 			else
-				info.Index = SqlQuery.Select.Add(info.Sql);
+				info.Index = this.SqlQuery.Select.Add(info.Sql);
 		}
 
 		#endregion

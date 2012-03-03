@@ -136,7 +136,9 @@ namespace LinqToDB.Data.Linq
 		#endregion
 
 		static public   Dictionary<string,Dictionary<MemberInfo,LambdaExpression>>  Members { get { return _members; } }
-		static readonly Dictionary<string,Dictionary<MemberInfo,LambdaExpression>> _members = new Dictionary<string,Dictionary<MemberInfo,LambdaExpression>>
+		static readonly Dictionary<string, Dictionary<MemberInfo, LambdaExpression>> _members = new Dictionary<string, Dictionary<MemberInfo, LambdaExpression>>
+		();
+		/*
 		{
 			{ "", new Dictionary<MemberInfo,LambdaExpression> {
 
@@ -1045,7 +1047,7 @@ namespace LinqToDB.Data.Linq
 
 			#endregion
 		};
-
+		*/
 		#region Sql specific
 
 		[CLSCompliant(false)]
@@ -1112,7 +1114,7 @@ namespace LinqToDB.Data.Linq
 
 			var sb = new StringBuilder(str.Length * count.Value);
 
-			for (var i = 0; i < count; i++)
+			for (var i = 0; i < count.Value; i++)
 				sb.Append(str);
 
 			return sb.ToString();
@@ -1130,7 +1132,7 @@ namespace LinqToDB.Data.Linq
 
 			var sb = new StringBuilder(count.Value);
 
-			for (var i = 0; i < count; i++)
+			for (var i = 0; i < count.Value; i++)
 				sb.Append(ch);
 
 			return sb.ToString();
@@ -1141,13 +1143,13 @@ namespace LinqToDB.Data.Linq
 		[SqlFunction]
 		static DateTime? DateAdd(Sql.DateParts part, int? number, int? days)
 		{
-			return days == null ? null : Sql.DateAdd(part, number, new DateTime(1900, 1, days.Value + 1));
+			return days == null ? null : Sql.DateAdd(part, number == null ? null : (F?)number.Value, new DateTime(1900, 1, days.Value + 1));
 		}
 
 		// MSSQL
 		//
-		[SqlFunction] static Decimal? Round(Decimal? value, int precision, int mode) { return 0; }
-		[SqlFunction] static Double?  Round(Double?  value, int precision, int mode) { return 0; }
+		[SqlFunction] static Decimal? Round(Decimal? value, int precision, int mode) { return 0m; }
+		[SqlFunction] static Double?  Round(Double?  value, int precision, int mode) { return 0d; }
 
 		// Access
 		//
@@ -1176,8 +1178,10 @@ namespace LinqToDB.Data.Linq
 
 		// Firebird
 		//
-		[SqlFunction("PI", ServerSideOnly = true)] static decimal DecimalPI() { return (decimal)Math.PI; }
-		[SqlFunction("PI", ServerSideOnly = true)] static double  DoublePI () { return          Math.PI; }
+		//[SqlFunction("PI", ServerSideOnly = true)] 
+		static decimal DecimalPI() { return (decimal)Math.PI; }
+		//[SqlFunction("PI", ServerSideOnly = true)] 
+		static double  DoublePI () { return          Math.PI; }
 
 		// Informix
 		//

@@ -670,8 +670,8 @@ namespace LinqToDB.Data.Linq.Builder
 
 			public Expression AddElementSelectorQ()
 			{
-				Expression<Func<IQueryable<TSource>,TKey,TElement,TResult,IQueryable<IGrouping<TKey,TSource>>>> func = (source,key,e,r) => source
-					.GroupBy(keyParam => key, _ => _)
+				Expression<Func<IQueryable<TSource>,TKey,TElement,TResult,IQueryable<IGrouping<TKey,TSource>>>> func = (source,keyXxx,e,r) => source
+					.GroupBy(keyParam => keyXxx, _ => _)
 					;
 
 				var body   = func.Body.Unwrap();
@@ -682,8 +682,9 @@ namespace LinqToDB.Data.Linq.Builder
 
 			public Expression AddElementSelectorE()
 			{
-				Expression<Func<IEnumerable<TSource>,TKey,TElement,TResult,IEnumerable<IGrouping<TKey,TSource>>>> func = (source,key,e,r) => source
-					.GroupBy(keyParam => key, _ => _)
+				Expression<Func<IEnumerable<TSource>,TKey,TElement,TResult,IEnumerable<IGrouping<TKey,TSource>>>> 
+					func = (source,key,e,r) => 
+						source.GroupBy(keyParam => key, _ => _)
 					;
 
 				var body   = func.Body.Unwrap();

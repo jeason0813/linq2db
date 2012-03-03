@@ -142,7 +142,10 @@ namespace LinqToDB.Mapping
 		public virtual SqlDecimal  GetSqlDecimal (object o, int index) { return _dataReader.IsDBNull(index)? SqlDecimal. Null: _dataReader.GetDecimal (index); }
 		public virtual SqlMoney    GetSqlMoney   (object o, int index) { return _dataReader.IsDBNull(index)? SqlMoney.   Null: _dataReader.GetDecimal (index); }
 		public virtual SqlGuid     GetSqlGuid    (object o, int index) { return _dataReader.IsDBNull(index)? SqlGuid.    Null: _dataReader.GetGuid    (index); }
-		public virtual SqlString   GetSqlString  (object o, int index) { return _dataReader.IsDBNull(index)? SqlString.  Null: _dataReader.GetString  (index); }
+		public virtual SqlString   GetSqlString  (object o, int index)
+		{
+			return _dataReader.IsDBNull(index) ? SqlString.Null : _dataReader.GetString(index);
+		}
 
 #endif
 

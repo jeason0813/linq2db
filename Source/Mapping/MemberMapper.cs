@@ -587,7 +587,7 @@ namespace LinqToDB.Mapping
 				if (mapMemberInfo == null) throw new ArgumentNullException("mapMemberInfo");
 
 				if (mapMemberInfo.NullValue != null)
-					_nullValue = Convert.ToString(mapMemberInfo.NullValue);
+					_nullValue = Convert.ToString((object)null);
 
 				base.Init(mapMemberInfo);
 			}

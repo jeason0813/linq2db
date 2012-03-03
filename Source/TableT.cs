@@ -165,7 +165,7 @@ namespace LinqToDB
 
 			try
 			{
-				return (IQueryable)Activator.CreateInstance(typeof(ExpressionQuery<>).MakeGenericType(elementType), new object[] { DataContextInfo, expression });
+				return (IQueryable)Activator.CreateInstance(typeof(ExpressionQuery<>).MakeGenericType(elementType), new object[] { this.DataContextInfo, expression });
 			}
 			catch (TargetInvocationException ex)
 			{

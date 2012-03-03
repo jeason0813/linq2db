@@ -429,7 +429,7 @@ namespace LinqToDB.Extensions
 			Path(expr, new HashSet<Expression>(), path, func);
 		}
 
-		static void Path(
+		public static void Path(
 			this Expression expr,
 			HashSet<Expression> visited,
 			Expression path,

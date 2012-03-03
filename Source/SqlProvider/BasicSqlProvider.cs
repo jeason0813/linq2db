@@ -1979,13 +1979,14 @@ namespace LinqToDB.SqlProvider
 
 		protected IEnumerable<SqlQuery.Column> AlternativeGetSelectedColumns(ColumnSelector columnSelector)
 		{
-			foreach (var col in columnSelector())
-				yield return col;
+			//foreach (var col in columnSelector())
+			//  yield return col;
 
-			var obys = GetTempAliases(SqlQuery.OrderBy.Items.Count, "oby");
+			//var obys = GetTempAliases(SqlQuery.OrderBy.Items.Count, "oby");
 
-			for (var i = 0; i < obys.Length; i++)
-				yield return new SqlQuery.Column(SqlQuery, SqlQuery.OrderBy.Items[i].Expression, obys[i]);
+			//for (var i = 0; i < obys.Length; i++)
+			//  yield return new SqlQuery.Column(SqlQuery, SqlQuery.OrderBy.Items[i].Expression, obys[i]);
+			return null;
 		}
 
 		protected bool IsDateDataType(ISqlExpression expr, string dateName)
@@ -2441,8 +2442,17 @@ namespace LinqToDB.SqlProvider
 
 		#region ISqlProvider Members
 
+		void F()
+		{
+			var v1 = (SqlValue)null;
+			var v2 = (SqlValue)null;
+			var v1 = new SqlValue(v1.Value.ToString() + v2.Value);
+		}
+
 		public virtual ISqlExpression ConvertExpression(ISqlExpression expression)
 		{
+			return null;
+			/*
 			switch (expression.ElementType)
 			{
 				case QueryElementType.SqlBinaryExpression:
@@ -2820,6 +2830,7 @@ namespace LinqToDB.SqlProvider
 			}
 
 			return expression;
+			*/
 		}
 
 		public virtual ISqlPredicate ConvertPredicate(ISqlPredicate predicate)
